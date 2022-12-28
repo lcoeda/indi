@@ -22,17 +22,22 @@ public class Memo extends TimeStamped {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String title;
+
 
     public Memo(MemoRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
         this.password = requestDto.getPassword();
+        this.title = requestDto.getTitle();
     }
 
     public void update(MemoRequestDto memoRequestDto) {
         this.username = memoRequestDto.getUsername();
         this.contents = memoRequestDto.getContents();
         this.password = memoRequestDto.getPassword();
+        this.title = memoRequestDto.getTitle();
     }
 
 }
