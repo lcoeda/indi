@@ -1,6 +1,6 @@
 package com.sparta.indi.entity;
 
-import com.sparta.indi.dto.MemoRequestDto;
+import com.sparta.indi.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Memo extends TimeStamped {
+public class Post extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,27 +17,29 @@ public class Memo extends TimeStamped {
     private String username;
 
     @Column(nullable = false)
-    private String contents;
+    private String pw;
 
     @Column(nullable = false)
-    private String password;
+    private String contents;
 
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    public Memo(MemoRequestDto requestDto) {
+    public Post(PostRequestDto requestDto) {
         this.username = requestDto.getUsername();
+        this.pw = requestDto.getPw();
         this.contents = requestDto.getContents();
-        this.password = requestDto.getPassword();
         this.title = requestDto.getTitle();
     }
 
-    public void update(MemoRequestDto memoRequestDto) {
-        this.username = memoRequestDto.getUsername();
-        this.contents = memoRequestDto.getContents();
-        this.password = memoRequestDto.getPassword();
-        this.title = memoRequestDto.getTitle();
+    public void update(PostRequestDto postRequestDto) {
+        this.username = postRequestDto.getUsername();
+        this.contents = postRequestDto.getContents();
+        this.pw = postRequestDto.getPw();
+        this.title = postRequestDto.getTitle();
     }
 
 }

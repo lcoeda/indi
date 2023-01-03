@@ -3,9 +3,9 @@ package com.sparta.indi.dto;
 import lombok.Getter;
 
 @Getter
-public class MemoRequestDto {
+public class PostRequestDto {
     private String title;
     private String username;
-    private String password;
+    private String pw;
     private String contents;
 }
