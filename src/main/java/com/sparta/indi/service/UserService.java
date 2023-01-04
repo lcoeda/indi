@@ -13,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
 
-    private static final String ADMIN_TOKEN="AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     private final JwtUtil jwtUtil;
 
@@ -46,10 +47,11 @@ public class UserService {
             }
             role = UserRoleEnum.ADMIN;
         }
-
-        User user = new User(username, pw, email,ph_number,role);
+        User user = new User(username, pw, email, ph_number, role);
         userRepository.save(user);
+
     }
+
     @Transactional(readOnly = true)
     public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
@@ -61,12 +63,12 @@ public class UserService {
         );
 
         // 비밀번호 확인
-        if(!user.getPw().equals(password)){
-            throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        if (!user.getPw().equals(password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
-                jwtUtil.createToken(user.getUsername(),user.getRole()));
+                jwtUtil.createToken(user.getUsername(), user.getRole()));
     }
 
 }

@@ -2,6 +2,7 @@ package com.sparta.indi.controller;
 
 import com.sparta.indi.dto.LoginRequestDto;
 import com.sparta.indi.dto.SignupRequestDto;
+import com.sparta.indi.entity.User;
 import com.sparta.indi.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class UserController {
     @PostMapping("/signup")
     public String signup(@RequestBody SignupRequestDto signupRequestDto){
         userService.signup(signupRequestDto);
-        return "회원가입 성공!";
+        return "회원 가입 성공";
     }
 
     @PostMapping("/login")
