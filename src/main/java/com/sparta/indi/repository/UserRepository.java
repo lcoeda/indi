@@ -1,9 +1,10 @@
 package com.sparta.indi.repository;
 
+import com.sparta.indi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<com.sparta.indi.entity.User,Long> {
-    List<com.sparta.indi.entity.User> findAllByOrderById();
+public interface UserRepository extends JpaRepository<User,Long> {
+    Optional<User> findByUsername(String username);
 }

@@ -14,32 +14,28 @@ public class Post extends TimeStamped {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String title;
 
     @Column(nullable = false)
-    private String pw;
+    private String username;
 
     @Column(nullable = false)
     private String contents;
 
-    @Column(nullable = false)
-    private String title;
 
-    @Column(nullable = false, unique = true)
-    private String email;
 
-    public Post(PostRequestDto requestDto) {
-        this.username = requestDto.getUsername();
-        this.pw = requestDto.getPw();
-        this.contents = requestDto.getContents();
+
+    public Post(PostRequestDto requestDto, long id) {
         this.title = requestDto.getTitle();
+        this.username = requestDto.getUsername();
+        this.contents = requestDto.getContents();
+
     }
 
     public void update(PostRequestDto postRequestDto) {
+        this.title = postRequestDto.getTitle();
         this.username = postRequestDto.getUsername();
         this.contents = postRequestDto.getContents();
-        this.pw = postRequestDto.getPw();
-        this.title = postRequestDto.getTitle();
     }
 
 }

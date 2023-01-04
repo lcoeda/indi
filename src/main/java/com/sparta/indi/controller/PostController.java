@@ -1,8 +1,10 @@
 package com.sparta.indi.controller;
 
 import com.sparta.indi.dto.PostRequestDto;
+import com.sparta.indi.dto.PostResponseDto;
 import com.sparta.indi.entity.Post;
 import com.sparta.indi.service.PostService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public Post createMemo(@RequestBody PostRequestDto requestDto){
-        return postService.createMemo(requestDto);
+    public PostResponseDto createMemo(@RequestBody PostRequestDto requestDto, HttpServletRequest request){
+        return postService.createPost(requestDto, request);
     }
 
     @GetMapping("/posts")
