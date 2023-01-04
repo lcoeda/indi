@@ -66,7 +66,6 @@ public class PostService {
         return find_id;
     }
 
-
     @Transactional
     public Post update(long id, PostRequestDto requestDto, HttpServletRequest request) {
 
@@ -76,6 +75,7 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
+
 
         if (token != null) {
             if (jwtUtil.validateToken(token)) {
@@ -95,10 +95,30 @@ public class PostService {
     }
 
     @Transactional
-    public String deleteMemo(Long id) {
-        postRepository.deleteById(id);
-        return "삭제 성공";
-    }
+    public void deletePost(Long id,HttpServletRequest request) {
 
+        String token = jwtUtil.resolveToken(request);
+        Claims claims;
+
+        if (token != null) {
+            if (jwtUtil.validateToken(token)) {
+                claims = jwtUtil.getUserInfoFromToken(token);
+            } else {
+                throw new IllegalArgumentException("Token Error");
+            }
+            User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
+                    () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
+            );
+
+            Post post = postRepository.findById(id).orElseThrow(
+                    () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+            );
+
+            if (post.getUsername().equals(user.getUsername())) {
+              postRepository.deleteById(id);
+            }
+        }
+
+    }
 
 }

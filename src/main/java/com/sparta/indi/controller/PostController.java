@@ -16,30 +16,29 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public String createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request){
+    public String createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request) {
         postService.createPost(requestDto, request);
         return "게시글이 등록됐습니다";
     }
 
     @GetMapping("/posts")
-    public List<Post> getPosts(){
+    public List<Post> getPosts() {
         return postService.getPosts();
     }
 
     @GetMapping("/posts/{id}")
-    public Post getMemo(@PathVariable Long id){
+    public Post getMemo(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
     @PutMapping("/posts/{id}")
-    public Post updateMemo
-            (@PathVariable long id, @RequestBody PostRequestDto requestDto,HttpServletRequest request)
-    {
-        return postService.update(id, requestDto,request);
+    public Post updatePost(@PathVariable long id, @RequestBody PostRequestDto requestDto, HttpServletRequest request) {
+        return postService.update(id, requestDto, request);
     }
 
     @DeleteMapping("/posts/{id}")
-    public String deleteMemo(@PathVariable Long id){
-        return postService.deleteMemo(id);
+    public String deletePost(@PathVariable Long id, HttpServletRequest request) {
+        postService.deletePost(id, request);
+        return "삭제 성공";
     }
 }
