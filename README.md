@@ -11,4 +11,4 @@ use case
 |@DeleteMapping|/api/memos/{id}|{"id":"id","pw":"pw"}|"success":"삭제되었습니다."|
 
 
-[스크린샷(23)](https://user-images.githubusercontent.com/120078825/210574139-20b09838-787f-48b6-9d8d-ac4e0a1ab4d2.png)
+![스크린샷(23)](https://user-images.githubusercontent.com/120078825/210574139-20b09838-787f-48b6-9d8d-ac4e0a1ab4d2.png)
