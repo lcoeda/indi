@@ -1,7 +1,6 @@
 package com.sparta.indi.controller;
 
 import com.sparta.indi.dto.PostRequestDto;
-import com.sparta.indi.dto.PostResponseDto;
 import com.sparta.indi.entity.Post;
 import com.sparta.indi.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,23 +16,26 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public PostResponseDto createMemo(@RequestBody PostRequestDto requestDto, HttpServletRequest request){
-        return postService.createPost(requestDto, request);
+    public String createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request){
+        postService.createPost(requestDto, request);
+        return "게시글이 등록됐습니다";
     }
 
     @GetMapping("/posts")
-    public List<Post> getMemos(){
-        return postService.getMemos();
+    public List<Post> getPosts(){
+        return postService.getPosts();
     }
 
     @GetMapping("/posts/{id}")
     public Post getMemo(@PathVariable Long id){
-        return postService.getMemo(id);
+        return postService.getPost(id);
     }
 
     @PutMapping("/posts/{id}")
-    public Post updateMemo(@PathVariable long id, @RequestBody PostRequestDto requestDto){
-        return postService.update(id, requestDto);
+    public Post updateMemo
+            (@PathVariable long id, @RequestBody PostRequestDto requestDto,HttpServletRequest request)
+    {
+        return postService.update(id, requestDto,request);
     }
 
     @DeleteMapping("/posts/{id}")

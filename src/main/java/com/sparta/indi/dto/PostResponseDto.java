@@ -11,12 +11,13 @@ public class PostResponseDto {
     private String title;
     private String username;
     private String contents;
-
+//    private String createdAt;
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.username = post.getUsername();
         this.contents = post.getContents();
+//        this.createdAt= String.valueOf(post.getCreatedAt());
     }
 }

@@ -54,14 +54,12 @@ public class PostService {
         }
     }
 
-
-    @Transactional(readOnly = true)
-    public List<Post> getMemos() {
+    public List<Post> getPosts() {
         return postRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Transactional
-    public Post getMemo(Long id) {
+    public Post getPost(Long id) {
         Post find_id = postRepository.findById(id).orElseThrow
                 (() -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
                 );
@@ -70,12 +68,28 @@ public class PostService {
 
 
     @Transactional
-    public Post update(Long id, PostRequestDto requestDto) {
+    public Post update(long id, PostRequestDto requestDto, HttpServletRequest request) {
+
+        String token = jwtUtil.resolveToken(request);
+        Claims claims;
+
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-        if (post.getUsername().equals(requestDto.getUsername())) {
-            post.update(requestDto);
+
+        if (token != null) {
+            if (jwtUtil.validateToken(token)) {
+                claims = jwtUtil.getUserInfoFromToken(token);
+            } else {
+                throw new IllegalArgumentException("Token Error");
+            }
+            User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
+                    () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
+            );
+
+            if (post.getUsername().equals(requestDto.getUsername())) {
+                post.update(requestDto);
+            }
         }
         return post;
     }
