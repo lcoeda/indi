@@ -30,7 +30,6 @@ public class UserService {
         String email = signupRequestDto.getEmail();
         long ph_number = signupRequestDto.getPh_number();
 
-
         // 회원 중복 확인
         Optional<User> found_username = userRepository.findByUsername(username);
         if (found_username.isPresent()) {

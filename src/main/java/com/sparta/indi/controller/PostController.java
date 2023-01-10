@@ -2,9 +2,11 @@ package com.sparta.indi.controller;
 
 import com.sparta.indi.dto.PostRequestDto;
 import com.sparta.indi.entity.Post;
+import com.sparta.indi.security.UserDetailsImplement;
 import com.sparta.indi.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,13 +34,14 @@ public class PostController {
     }
 
     @PutMapping("/posts/{id}")
-    public Post updatePost(@PathVariable long id, @RequestBody PostRequestDto requestDto, HttpServletRequest request) {
-        return postService.update(id, requestDto, request);
+    public Post updatePost(@PathVariable long id, @RequestBody PostRequestDto requestDto,
+                           @AuthenticationPrincipal UserDetailsImplement userDetailsImplement) {
+        return postService.update(id, requestDto, userDetailsImplement.getUser());
     }
 
     @DeleteMapping("/posts/{id}")
-    public String deletePost(@PathVariable Long id, HttpServletRequest request) {
-        postService.deletePost(id, request);
+    public String deletePosts(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImplement userDetailsImplement) {
+        postService.deletePosts(id, userDetailsImplement.getUser());
         return "삭제 성공";
     }
 }

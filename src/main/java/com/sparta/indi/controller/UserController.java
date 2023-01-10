@@ -22,7 +22,7 @@ public class UserController {
         return "회원 가입 성공";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login-page")
     public String login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response){
         userService.login(loginRequestDto,response);
         return "로그인 성공!";
