@@ -3,7 +3,7 @@ package com.sparta.indi.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Comment {
+public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -14,5 +14,8 @@ public class Comment {
     @Column(nullable = false)
     private String comments;
 
-
+    public Comments(){
+        this.username = username;
+        this.comments = comments;
+    }
 }

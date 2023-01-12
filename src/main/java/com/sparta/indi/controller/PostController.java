@@ -1,10 +1,10 @@
 package com.sparta.indi.controller;
 
-import com.sparta.indi.dto.PostRequestDto;
+import com.sparta.indi.dto.post.PostRequestDto;
+import com.sparta.indi.dto.post.PostResponseDto;
 import com.sparta.indi.entity.Post;
 import com.sparta.indi.security.UserDetailsImplement;
 import com.sparta.indi.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public String createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request) {
-        postService.createPost(requestDto, request);
-        return "게시글이 등록됐습니다";
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImplement detailsImplement) {
+        PostResponseDto responseDto = postService.createPost(requestDto, detailsImplement.getUser());
+        return responseDto;
     }
 
     @GetMapping("/posts")

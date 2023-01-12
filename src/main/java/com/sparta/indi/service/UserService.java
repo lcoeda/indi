@@ -30,7 +30,6 @@ public class UserService {
         String email = signupRequestDto.getEmail();
         long ph_number = signupRequestDto.getPh_number();
 
-        // 회원 중복 확인
         Optional<User> found_username = userRepository.findByUsername(username);
         if (found_username.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
@@ -48,7 +47,6 @@ public class UserService {
         }
         User user = new User(username, pw, email, ph_number, role);
         userRepository.save(user);
-
     }
 
     @Transactional(readOnly = true)
@@ -56,12 +54,10 @@ public class UserService {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPw();
 
-        // 사용자 확인
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
-        // 비밀번호 확인
         if (!user.getPw().equals(password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }

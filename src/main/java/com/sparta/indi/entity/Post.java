@@ -1,6 +1,6 @@
 package com.sparta.indi.entity;
 
-import com.sparta.indi.dto.PostRequestDto;
+import com.sparta.indi.dto.post.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +22,9 @@ public class Post extends TimeStamped {
     @Column(nullable = false)
     private String contents;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post(PostRequestDto requestDto, long id) {
         this.title = requestDto.getTitle();

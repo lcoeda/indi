@@ -1,4 +1,4 @@
-package com.sparta.indi.dto;
+package com.sparta.indi.dto.post;
 
 import lombok.Getter;
 

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -23,7 +25,6 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    @Size(min = 8, max = 15, message = "password는 8~15글자로 만들어야합니다.")
     @Pattern(regexp = "(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{8,15}",message = "pw는 8~15자 이내에 소문자, 대문자, 숫자를 하나 이상 포함해야합니다.")
     private String pw;
 
@@ -36,6 +37,9 @@ public class User {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Post> posts = new ArrayList<>();
 
     public User(String username, String pw, String email,long ph_number, UserRoleEnum role){
         this.username = username;
