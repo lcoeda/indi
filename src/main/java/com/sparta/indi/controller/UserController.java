@@ -24,7 +24,6 @@ public class UserController {
         userService.signup(signupRequestDto);
         String text = "회원가입 성공";
         return ResponseEntity.ok(new SecurityExceptionDto(200, text));
-
     }
 
     @PostMapping("/login")
